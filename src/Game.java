@@ -20,7 +20,7 @@ public class Game {
             while ((line = csvReader.readLine()) != null) {
                 String[] data = line.split("[, ]+");
                 for (int i = 0; i < data.length; i++) {
-                    insertNumber(this.board, Integer.parseInt(data[i]), row, i);
+                    this.board[row][i] = Integer.parseInt(data[i]);
                 }
                 row++;
             }
@@ -51,10 +51,6 @@ public class Game {
             newBoard.append("\n");
         }
         return newBoard.toString();
-    }
-
-    private void insertNumber(int[][] board, int number, int row, int col) {
-        board[row][col] = number;
     }
 
     private boolean checkVertical(int num, int row) {
@@ -105,10 +101,6 @@ public class Game {
         return numOfZeros == 0;
     }
 
-    private void deleteNumber(int[][] board, int row, int col){
-        board[row][col] = 0;
-    }
-
     public boolean solved(int[][] board) {
         int[] nums = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 
@@ -119,12 +111,12 @@ public class Game {
                     // here we just go through all available numbers.
                     for (int num : nums) {
                         if (isValidPlacement(num, row, col)) {
-                            insertNumber(board, num, row, col); // place a number in
+                            board[row][col] = num; // place a number in
 
                             if(solved(board)){ // does this solve the board?
                                 return true;
                             }
-                            deleteNumber(board, row, col); // no? just delete the number u put in.
+                            board[row][col] = 0; // no? just delete the number u put in.
                         }
                         // can't backtrack here.
                     }
