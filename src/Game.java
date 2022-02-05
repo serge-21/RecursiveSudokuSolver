@@ -7,7 +7,7 @@ public class Game {
     static final int MAX_SIZE = 9;
 
     public Game() {
-        this.board = new int[9][9];
+        this.board = new int[MAX_SIZE][MAX_SIZE];
         setBoard();
     }
 
@@ -112,7 +112,6 @@ public class Game {
                     for (int num : nums) {
                         if (isValidPlacement(num, row, col)) {
                             board[row][col] = num; // place a number in
-
                             if(solved(board)){ // does this solve the board?
                                 return true;
                             }
